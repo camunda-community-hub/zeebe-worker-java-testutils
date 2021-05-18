@@ -4,3 +4,66 @@
 # Zeebe Worker Java Test Utilities
 
 Utilities to test Zeebe workers implemented in Java.
+
+This library makes the implementation of unit tests for Zeebe workers easier:
+
+```java
+  private final DivisionHandler sutDivisionHandler=new DivisionHandler();
+
+@Test
+public void shouldDivideFourByTwo(){
+// given
+final var stubJobClient=new JobClientStub();
+final var stubActivatedJob=stubJobClient.createActivatedJob();
+
+  stubActivatedJob.setInputVariables(Map.of("a",4l,"b",2l));
+
+  // when
+  sutDivisionHandler.handle(stubJobClient,stubActivatedJob);
+
+  // then
+  assertThat(stubActivatedJob).completed().withOutputThat().containsOnly(entry("result",2d));
+  }
+
+@Test
+public void shouldThrowErrorWhenDividingByZero(){
+// given
+final var stubJobClient=new JobClientStub();
+final var stubActivatedJob=stubJobClient.createActivatedJob();
+
+  stubActivatedJob.setInputVariables(Map.of("a",4l,"b",0l));
+
+  // when
+  sutDivisionHandler.handle(stubJobClient,stubActivatedJob);
+
+  // then
+  assertThat(stubActivatedJob)
+  .threwError()
+  .hasErrorCode("division-by-zero")
+  .hasErrorMessage("Cannot divide 4 by zero");
+  }
+
+@Test
+public void shouldFailWhenInputInvalid(){
+// given
+final var stubJobClient=new JobClientStub();
+final var stubActivatedJob=stubJobClient.createActivatedJob();
+
+  stubActivatedJob.setInputVariables(Map.of("a",4l,"b","INVALID INPUT"));
+
+  // when
+  sutDivisionHandler.handle(stubJobClient,stubActivatedJob);
+
+  // then
+  assertThat(stubActivatedJob).failed().hasRetries(0).hasErrorMessage("exception occurred");
+  }
+```
+
+## Current Status
+
+* Working on a proof of concept
+* Many methods are not yet implemented or have dummy implementations (
+  e.g. `JobClient::setVariables(Map)` is implemented, but `JobClient::setVariables(InputStream)` is
+  not implemented)
+* The most common call paths are covered
+* Next step is to use this library for testing and refine the assertion API
