@@ -1,17 +1,12 @@
-# If this workflow is triggered by a push to $default_branch, it
-#        deploys a SNAPSHOT
-# If this workflow is triggered by publishing a Release, it
-#        deploys a RELEASE with the selected version
-#        updates the project version by incrementing the patch version
-#        commits the version update change to the repository's default branch ($default_branch).
 name: Build, test and deploy artifacts with Maven
 on:
-  push:
-    branches: [ $default_branch ]
+  pull_request: { }
+  push: { }
+  workflow_dispatch: { }
   release:
     types: [ published ]
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -44,7 +39,8 @@ jobs:
         if: failure()
         with:
           files: target/surefire-reports/*.xml
-      - name: Deploy SNAPSHOT / Release
+      - if: github.event.release || github.event_name == 'workflow_dispatch'
+        name: Deploy SNAPSHOT / Release
         uses: camunda-community-hub/community-action-maven-release@v1
         with:
           release-version: ${{ github.event.release.tag_name }}
