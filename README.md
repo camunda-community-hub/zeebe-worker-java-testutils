@@ -8,55 +8,58 @@ Utilities to test Zeebe workers implemented in Java.
 This library makes the implementation of unit tests for Zeebe workers easier:
 
 ```java
-  private final DivisionHandler sutDivisionHandler=new DivisionHandler();
+public class DivisionHandlerTest {
 
-@Test
-public void shouldDivideFourByTwo(){
-// given
-final var stubJobClient=new JobClientStub();
-final var stubActivatedJob=stubJobClient.createActivatedJob();
+  private final DivisionHandler sutDivisionHandler = new DivisionHandler();
 
-  stubActivatedJob.setInputVariables(Map.of("a",4l,"b",2l));
+  @Test
+  public void shouldDivideFourByTwo() {
+    // given
+    final var stubJobClient = new JobClientStub();
+    final var stubActivatedJob = stubJobClient.createActivatedJob();
 
-  // when
-  sutDivisionHandler.handle(stubJobClient,stubActivatedJob);
+    stubActivatedJob.setInputVariables(Map.of("a", 4L, "b", 2L));
 
-  // then
-  assertThat(stubActivatedJob).completed().withOutputThat().containsOnly(entry("result",2d));
+    // when
+    sutDivisionHandler.handle(stubJobClient, stubActivatedJob);
+
+    // then
+    assertThat(stubActivatedJob).completed().withOutputThat().containsOnly(entry("result", 2d));
   }
 
-@Test
-public void shouldThrowErrorWhenDividingByZero(){
-// given
-final var stubJobClient=new JobClientStub();
-final var stubActivatedJob=stubJobClient.createActivatedJob();
+  @Test
+  public void shouldThrowErrorWhenDividingByZero() {
+    // given
+    final var stubJobClient = new JobClientStub();
+    final var stubActivatedJob = stubJobClient.createActivatedJob();
 
-  stubActivatedJob.setInputVariables(Map.of("a",4l,"b",0l));
+    stubActivatedJob.setInputVariables(Map.of("a", 4L, "b", 0L));
 
-  // when
-  sutDivisionHandler.handle(stubJobClient,stubActivatedJob);
+    // when
+    sutDivisionHandler.handle(stubJobClient, stubActivatedJob);
 
-  // then
-  assertThat(stubActivatedJob)
-  .threwError()
-  .hasErrorCode("division-by-zero")
-  .hasErrorMessage("Cannot divide 4 by zero");
+    // then
+    assertThat(stubActivatedJob)
+      .threwError()
+      .hasErrorCode("division-by-zero")
+      .hasErrorMessage("Cannot divide 4 by zero");
   }
 
-@Test
-public void shouldFailWhenInputInvalid(){
-// given
-final var stubJobClient=new JobClientStub();
-final var stubActivatedJob=stubJobClient.createActivatedJob();
+  @Test
+  public void shouldFailWhenInputInvalid() {
+    // given
+    final var stubJobClient = new JobClientStub();
+    final var stubActivatedJob = stubJobClient.createActivatedJob();
 
-  stubActivatedJob.setInputVariables(Map.of("a",4l,"b","INVALID INPUT"));
+    stubActivatedJob.setInputVariables(Map.of("a", 4L, "b", "INVALID INPUT"));
 
-  // when
-  sutDivisionHandler.handle(stubJobClient,stubActivatedJob);
+    // when
+    sutDivisionHandler.handle(stubJobClient, stubActivatedJob);
 
-  // then
-  assertThat(stubActivatedJob).failed().hasRetries(0).hasErrorMessage("exception occurred");
+    // then
+    assertThat(stubActivatedJob).failed().hasRetries(0).hasErrorMessage("exception occurred");
   }
+}
 ```
 
 ## Current Status
