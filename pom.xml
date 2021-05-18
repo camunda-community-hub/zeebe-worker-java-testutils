@@ -6,20 +6,19 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.camunda.bpm.extension.name</groupId>
-  <artifactId>give-me-a-name</artifactId>
+  <groupId>io.zeebe</groupId>
+  <artifactId>zeebe-worker-java-testutils</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>give-me-a-name</name>
-
-  <!-- When changing the artifact or name, also make sure to change the SCM
-    location below and in .ci/scripts/github-release.sh -->
+  <name>Zeebe Worker Java Test Utilities</name>
 
   <scm>
-    <url>https://github.com/camunda-community-hub/maven-template</url>
-    <connection>scm:git:git@github.com:camunda-community-hub/maven-template.git</connection>
-    <developerConnection>scm:git:git@github.com:camunda-community-hub/maven-tenmplate.git
+    <url>https://github.com/camunda-community-hub/zeebe-worker-java-testutils</url>
+    <connection>scm:git:git@github.com:camunda-community-hub/zeebe-worker-java-testutils.git
+    </connection>
+    <developerConnection>
+      scm:git:git@github.com:camunda-community-hub/zeebe-worker-java-testutils.git
     </developerConnection>
     <tag>HEAD</tag>
   </scm>
