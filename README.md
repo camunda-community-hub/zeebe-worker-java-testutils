@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/Lifecycle-Proof%20of%20Concept-blueviolet)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#proof-of-concept-)
+[![](https://img.shields.io/badge/Lifecycle-Incubating-blue)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#incubating-)
 [![Community extension badge](https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700)](https://github.com/camunda-community-hub/community)
 
 # Zeebe Worker Java Test Utilities
@@ -70,11 +70,6 @@ public class DivisionHandlerTest {
 ```
 
 Look at `samples` package to see more examples.
-
-## Current Status
-
-* Working on a proof of concept
-* Next step is to use this library for testing and refine the assertion API
 
 ## Things to Know
 
