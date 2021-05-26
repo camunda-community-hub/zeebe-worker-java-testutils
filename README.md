@@ -67,6 +67,8 @@ public class DivisionHandlerTest {
 }
 ```
 
+Look at `samples` package to see more examples.
+
 ## Current Status
 
 * Working on a proof of concept
