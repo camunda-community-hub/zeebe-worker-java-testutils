@@ -41,7 +41,8 @@ class CompleteJobCommandStep1Stub implements CompleteJobCommandStep1 {
 
   @Override
   public FinalCommandStep<CompleteJobResponse> requestTimeout(final Duration requestTimeout) {
-    throw new IllegalStateException("Not yet implemented");
+    // no effect on stub
+    return this;
   }
 
   @Override

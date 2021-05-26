@@ -22,7 +22,8 @@ class ThrowErrorCommandStep2Stub implements ThrowErrorCommandStep2 {
 
   @Override
   public FinalCommandStep<Void> requestTimeout(final Duration requestTimeout) {
-    throw new IllegalStateException("Not yet implemented");
+    // no effect on stub
+    return this;
   }
 
   @Override

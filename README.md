@@ -77,3 +77,7 @@ Look at `samples` package to see more examples.
   not implemented)
 * The most common call paths are covered
 * Next step is to use this library for testing and refine the assertion API
+
+## Things to Know
+
+* calling `requestTimeout(...)` has no effect at all on any of the stubs

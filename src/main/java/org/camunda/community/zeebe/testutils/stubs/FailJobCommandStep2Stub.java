@@ -24,7 +24,8 @@ class FailJobCommandStep2Stub implements FailJobCommandStep2 {
 
   @Override
   public FinalCommandStep<FailJobResponse> requestTimeout(final Duration requestTimeout) {
-    throw new IllegalStateException("Not yet implemented");
+    // no effect on stub
+    return this;
   }
 
   @Override
