@@ -31,6 +31,8 @@ public class JobHandlerImpl implements JobHandler {
             .send()
             .join();
         break;
+      case COMMAND_REJECTED_JOB_NOT_FOUND:
+        client.newCompleteCommand(Long.MIN_VALUE + job.getKey()).send().join();
       default:
         throw new IllegalStateException("Unexpected case: " + scenario.name());
     }
@@ -40,7 +42,8 @@ public class JobHandlerImpl implements JobHandler {
     COMPLETE_JOB_NO_VARIABLES,
     COMPLETE_JOB_WITH_VARIABLES,
     FAIL_JOB,
-    THROW_ERROR;
+    THROW_ERROR,
+    COMMAND_REJECTED_JOB_NOT_FOUND;
 
     // TODO add more scenarios: timeouts, rejected commands, etc.
 

@@ -47,6 +47,12 @@ public class ActivatedJobStubAssert
     return new ErrorThrownActivatedJobStubAssert(actual);
   }
 
+  public void isStillActivated() {
+    if (!(actual.getStatus() == Status.ACTIVATED)) {
+      failWithMessageWrongStatus(Status.ACTIVATED);
+    }
+  }
+
   public static class CompletedActivatedJobStubAssert
       extends AbstractAssert<ActivatedJobStubAssert, ActivatedJobStub> {
 

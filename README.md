@@ -77,3 +77,6 @@ Look at `samples` package to see more examples.
 ## Things to Know
 
 * calling `requestTimeout(...)` has no effect at all on any of the stubs
+* Exceptions thrown by aim to be class-compatible with the original exceptions
+  * They won't, however, have the exact same messages as the real ones
+  * Likewise, they have a different caused-by chain very different stacktraces

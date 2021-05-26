@@ -36,9 +36,7 @@ class FailJobCommandStep2Stub implements FailJobCommandStep2 {
       job.setFailed();
       result.complete(new FailJobResponse() {});
     } else {
-      result.completeExceptionally(
-          new IllegalStateException(
-              "Not yet implemented, and I don't know what the real exception would be"));
+      result.completeExceptionally(ExceptionBehavior.buildNotFoundException());
     }
 
     return result;

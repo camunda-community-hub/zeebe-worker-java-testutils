@@ -34,9 +34,7 @@ class ThrowErrorCommandStep2Stub implements ThrowErrorCommandStep2 {
       job.setErrorThrown();
       result.complete(null);
     } else {
-      result.completeExceptionally(
-          new IllegalStateException(
-              "Not yet implemented, and I don't know what the real exception would be"));
+      result.completeExceptionally(ExceptionBehavior.buildNotFoundException());
     }
 
     return result;

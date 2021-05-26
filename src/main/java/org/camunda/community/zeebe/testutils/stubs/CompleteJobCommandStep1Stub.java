@@ -42,9 +42,7 @@ class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobComman
       job.setCompleted();
       result.complete(new CompleteJobResponse() {});
     } else {
-      result.completeExceptionally(
-          new IllegalStateException(
-              "Not yet implemented, and I don't know what the real exception would be"));
+      result.completeExceptionally(ExceptionBehavior.buildNotFoundException());
     }
 
     return result;

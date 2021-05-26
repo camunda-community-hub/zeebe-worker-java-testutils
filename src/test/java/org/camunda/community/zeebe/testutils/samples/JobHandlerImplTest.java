@@ -4,6 +4,11 @@ import static java.util.Map.entry;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
 
+import io.grpc.StatusRuntimeException;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
+import org.assertj.core.api.Assertions;
+import org.camunda.community.zeebe.testutils.samples.JobHandlerImpl.Scenario;
 import org.camunda.community.zeebe.testutils.stubs.JobClientStub;
 import org.junit.jupiter.api.Test;
 
@@ -74,5 +79,24 @@ public class JobHandlerImplTest {
         .threwError()
         .hasErrorCode("error-code")
         .hasErrorMessage("a defined error occurred");
+  }
+
+  @Test
+  public void shouldLeaveJobActivated() {
+    // given
+    final var stubJobClient = new JobClientStub();
+    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    Scenario.COMMAND_REJECTED_JOB_NOT_FOUND.writeScenario(stubActivatedJob);
+
+    // when
+    Assertions.assertThatThrownBy(() -> sutJobHandler.handle(stubJobClient, stubActivatedJob))
+        .isInstanceOf(CompletionException.class)
+        .getCause()
+        .isInstanceOf(ExecutionException.class)
+        .getCause()
+        .isInstanceOf(StatusRuntimeException.class);
+
+    // then
+    assertThat(stubActivatedJob).isStillActivated();
   }
 }
