@@ -16,7 +16,7 @@ public class JobHandlerImplTest {
     // given
     final var stubJobClient = new JobClientStub();
     final var stubActivatedJob = stubJobClient.createActivatedJob();
-    Scenario.COMPLETE_JOB_NO_VARIABLES.writeScenario(stubActivatedJob);
+    JobHandlerImpl.Scenario.COMPLETE_JOB_NO_VARIABLES.writeScenario(stubActivatedJob);
 
     // when
     sutJobHandler.handle(stubJobClient, stubActivatedJob);
@@ -30,7 +30,7 @@ public class JobHandlerImplTest {
     // given
     final var stubJobClient = new JobClientStub();
     final var stubActivatedJob = stubJobClient.createActivatedJob();
-    Scenario.COMPLETE_JOB_WITH_VARIABLES.writeScenario(stubActivatedJob);
+    JobHandlerImpl.Scenario.COMPLETE_JOB_WITH_VARIABLES.writeScenario(stubActivatedJob);
 
     // when
     sutJobHandler.handle(stubJobClient, stubActivatedJob);
@@ -50,7 +50,7 @@ public class JobHandlerImplTest {
     // given
     final var stubJobClient = new JobClientStub();
     final var stubActivatedJob = stubJobClient.createActivatedJob();
-    Scenario.FAIL_JOB.writeScenario(stubActivatedJob);
+    JobHandlerImpl.Scenario.FAIL_JOB.writeScenario(stubActivatedJob);
 
     // when
     sutJobHandler.handle(stubJobClient, stubActivatedJob);
@@ -64,7 +64,7 @@ public class JobHandlerImplTest {
     // given
     final var stubJobClient = new JobClientStub();
     final var stubActivatedJob = stubJobClient.createActivatedJob();
-    Scenario.THROW_ERROR.writeScenario(stubActivatedJob);
+    JobHandlerImpl.Scenario.THROW_ERROR.writeScenario(stubActivatedJob);
 
     // when
     sutJobHandler.handle(stubJobClient, stubActivatedJob);
