@@ -19,6 +19,11 @@ public class DivisionHandlerTest {
     final var stubActivatedJob = stubJobClient.createActivatedJob();
 
     stubActivatedJob.setInputVariables(Map.of("a", 4L, "b", 2L));
+    // set other fields as required
+    //   stubActivatedJob.setBpmnProcessId("division_process");
+    //   stubActivatedJob.setRetries(5);
+    //   stubActivatedJob.setWorker("division_worker");
+    //   ...
 
     // when
     sutDivisionHandler.handle(stubJobClient, stubActivatedJob);

@@ -1,16 +1,59 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
 import io.camunda.zeebe.client.api.response.ActivatedJob;
+import io.camunda.zeebe.client.impl.ZeebeObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO implement all the getters and corresponding setters
+/**
+ * Stub object for {@code ActivatedJob}. It contains setters for all getters defined in the
+ * interface.
+ *
+ * <p>Plus it contains additional getters that are only available once a job has been worked on.
+ *
+ * <p>{@code getStatus()}
+ *
+ * <ul>
+ *   <li>{@code ACTIVATED} - initial state. Either the job has not been worked on yet, or it has
+ *       been worked on, but no result was submitted via {@code JobClient}
+ *   <li>{@code COMPLETED} - job was completed. This unlocks:
+ *       <ul>
+ *         <li>{@code getOutputVariables()} - the variables set on completion of the job
+ *       </ul>
+ *   <li>{@code FAILED} - job failed. This unlocks:
+ *       <ul>
+ *         <li>{@code getErrorMessage()} - error message of the job
+ *         <li>{@code getRemainingRetries()} - remaining retries for the job
+ *       </ul>
+ *   <li>{@code ERROR_THROWN} - an error was thrown. This unlocks
+ *       <ul>
+ *         <li>{@code getErrorMessage()}
+ *         <li>{@code getErrorCode()}
+ *       </ul>
+ * </ul>
+ */
 public class ActivatedJobStub implements ActivatedJob {
 
-  private final long key;
-  private Map<String, Object> inputVariables = new HashMap<>();
-  private Map<String, Object> outputVariables = new HashMap<>();
+  private static final ZeebeObjectMapper JSON_MAPPER = new ZeebeObjectMapper();
+
+  // variables available at the outset
   private Status status = Status.ACTIVATED;
+  private Map<String, Object> inputVariables = new HashMap<>();
+  private final long key;
+  private String type = "jobType";
+  private long processInstanceKey = 0;
+  private String bpmnProcessId = "bpmnProcessId";
+  private int processDefinitionVersion = 0;
+  private int processDefinitionKey = 0;
+  private String elementId = "serviceTask1";
+  private long elementInstanceKey = 0;
+  private Map<String, String> customHeaders = new HashMap<>();
+  private String worker = "worker";
+  private int retries = 1;
+  private long deadline = 10_000L;
+
+  // variables available after working on a job
+  private Map<String, Object> outputVariables = new HashMap<>();
   private String errorMessage;
   private int remainingRetries;
   private String errorCode;
@@ -26,62 +69,106 @@ public class ActivatedJobStub implements ActivatedJob {
 
   @Override
   public String getType() {
-    return null;
+    return type;
+  }
+
+  public void setType(final String type) {
+    this.type = type;
   }
 
   @Override
   public long getProcessInstanceKey() {
-    return 0;
+    return processInstanceKey;
+  }
+
+  public void setProcessInstanceKey(final long processInstanceKey) {
+    this.processInstanceKey = processInstanceKey;
   }
 
   @Override
   public String getBpmnProcessId() {
-    return null;
+    return bpmnProcessId;
+  }
+
+  public void setBpmnProcessId(final String bpmnProcessId) {
+    this.bpmnProcessId = bpmnProcessId;
   }
 
   @Override
   public int getProcessDefinitionVersion() {
-    return 0;
+    return processDefinitionVersion;
+  }
+
+  public void setProcessDefinitionVersion(final int processDefinitionVersion) {
+    this.processDefinitionVersion = processDefinitionVersion;
   }
 
   @Override
   public long getProcessDefinitionKey() {
-    return 0;
+    return processDefinitionKey;
+  }
+
+  public void setProcessDefinitionKey(final int processDefinitionKey) {
+    this.processDefinitionKey = processDefinitionKey;
   }
 
   @Override
   public String getElementId() {
-    return null;
+    return elementId;
+  }
+
+  public void setElementId(final String elementId) {
+    this.elementId = elementId;
   }
 
   @Override
   public long getElementInstanceKey() {
-    return 0;
+    return elementInstanceKey;
+  }
+
+  public void setElementInstanceKey(final long elementInstanceKey) {
+    this.elementInstanceKey = elementInstanceKey;
   }
 
   @Override
   public Map<String, String> getCustomHeaders() {
-    return null;
+    return customHeaders;
+  }
+
+  public void setCustomHeaders(final Map<String, String> customHeaders) {
+    this.customHeaders = customHeaders;
   }
 
   @Override
   public String getWorker() {
-    return null;
+    return worker;
+  }
+
+  public void setWorker(final String worker) {
+    this.worker = worker;
   }
 
   @Override
   public int getRetries() {
-    return 0;
+    return retries;
+  }
+
+  public void setRetries(final int retries) {
+    this.retries = retries;
   }
 
   @Override
   public long getDeadline() {
-    return 0;
+    return deadline;
+  }
+
+  public void setDeadline(final long deadline) {
+    this.deadline = deadline;
   }
 
   @Override
   public String getVariables() {
-    return null;
+    return JSON_MAPPER.toJson(inputVariables);
   }
 
   @Override
@@ -91,12 +178,17 @@ public class ActivatedJobStub implements ActivatedJob {
 
   @Override
   public <T> T getVariablesAsType(final Class<T> variableType) {
-    return null;
+    return JSON_MAPPER.fromJson(getVariables(), variableType);
   }
 
   @Override
   public String toJson() {
-    return null;
+    return JSON_MAPPER.toJson(this);
+  }
+
+  @Override
+  public String toString() {
+    return toJson();
   }
 
   public Status getStatus() {
