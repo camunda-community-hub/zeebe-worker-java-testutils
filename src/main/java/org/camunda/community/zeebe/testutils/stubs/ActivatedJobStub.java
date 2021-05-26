@@ -224,7 +224,7 @@ public class ActivatedJobStub implements ActivatedJob {
   }
 
   public void setInputVariables(final Map<String, Object> variables) {
-    inputVariables = Map.copyOf(variables);
+    inputVariables = variables;
   }
 
   public Map<String, Object> getOutputVariables() {
@@ -232,7 +232,7 @@ public class ActivatedJobStub implements ActivatedJob {
   }
 
   protected void setOutputVariables(final Map<String, Object> variables) {
-    outputVariables = Map.copyOf(variables);
+    outputVariables = variables;
   }
 
   public String getErrorMessage() {
