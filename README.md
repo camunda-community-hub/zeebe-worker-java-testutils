@@ -72,10 +72,6 @@ Look at `samples` package to see more examples.
 ## Current Status
 
 * Working on a proof of concept
-* Many methods are not yet implemented or have dummy implementations (
-  e.g. `JobClient::setVariables(Map)` is implemented, but `JobClient::setVariables(InputStream)` is
-  not implemented)
-* The most common call paths are covered
 * Next step is to use this library for testing and refine the assertion API
 
 ## Things to Know

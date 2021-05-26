@@ -32,7 +32,7 @@ public class JobHandlerImpl implements JobHandler {
             .join();
         break;
       default:
-        throw new IllegalStateException("Not yet implemented");
+        throw new IllegalStateException("Unexpected case: " + scenario.name());
     }
   }
 

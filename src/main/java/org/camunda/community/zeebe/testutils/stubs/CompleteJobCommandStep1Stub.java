@@ -4,39 +4,28 @@ import io.camunda.zeebe.client.api.ZeebeFuture;
 import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
 import io.camunda.zeebe.client.api.command.FinalCommandStep;
 import io.camunda.zeebe.client.api.response.CompleteJobResponse;
-import java.io.InputStream;
+import io.camunda.zeebe.client.impl.ZeebeObjectMapper;
+import io.camunda.zeebe.client.impl.command.CommandWithVariables;
 import java.time.Duration;
-import java.util.Map;
 
-class CompleteJobCommandStep1Stub implements CompleteJobCommandStep1 {
+class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobCommandStep1>
+    implements CompleteJobCommandStep1 {
+
+  private static final ZeebeObjectMapper JSON_MAPPER = new ZeebeObjectMapper();
 
   private final ActivatedJobStub job;
 
   CompleteJobCommandStep1Stub(final ActivatedJobStub job) {
+    super(JSON_MAPPER);
     this.job = job;
   }
 
   @Override
-  public CompleteJobCommandStep1 variables(final InputStream variables) {
-    throw new IllegalStateException("Not yet implemented");
-  }
-
-  @Override
-  public CompleteJobCommandStep1 variables(final String variables) {
-    throw new IllegalStateException("Not yet implemented");
-  }
-
-  @Override
-  public CompleteJobCommandStep1 variables(final Map<String, Object> variables) {
+  protected CompleteJobCommandStep1 setVariablesInternal(final String variables) {
     if (job != null) {
-      job.setOutputVariables(variables);
+      job.setOutputVariables(JSON_MAPPER.fromJsonAsMap(variables));
     }
     return this;
-  }
-
-  @Override
-  public CompleteJobCommandStep1 variables(final Object variables) {
-    throw new IllegalStateException("Not yet implemented");
   }
 
   @Override
