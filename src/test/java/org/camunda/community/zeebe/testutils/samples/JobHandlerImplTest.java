@@ -43,7 +43,7 @@ public class JobHandlerImplTest {
     // then
     assertThat(stubActivatedJob)
         .completed()
-        .withOutputThat()
+        .extractingOutput()
         .containsExactly(entry("key", "value"));
 
     // alternative assertion

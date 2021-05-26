@@ -3,12 +3,16 @@ package org.camunda.community.zeebe.testutils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.assertj.core.api.AbstractAssert;
+import org.assertj.core.api.AbstractIntegerAssert;
+import org.assertj.core.api.AbstractObjectAssert;
+import org.assertj.core.api.AbstractStringAssert;
+import org.assertj.core.api.Assertions;
 import org.assertj.core.api.MapAssert;
 import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
 import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub.Status;
 
 public class ActivatedJobStubAssert
-    extends AbstractAssert<ActivatedJobStubAssert, ActivatedJobStub> {
+    extends AbstractObjectAssert<ActivatedJobStubAssert, ActivatedJobStub> {
 
   protected ActivatedJobStubAssert(final ActivatedJobStub actual) {
     super(actual, ActivatedJobStubAssert.class);
@@ -60,7 +64,7 @@ public class ActivatedJobStubAssert
       super(activatedJobStub, CompletedActivatedJobStubAssert.class);
     }
 
-    public MapAssert<String, Object> withOutputThat() {
+    public MapAssert<String, Object> extractingOutput() {
       return assertThat(actual.getOutputVariables())
           .describedAs("Output variables for job " + actual.getKey());
     }
@@ -73,20 +77,24 @@ public class ActivatedJobStubAssert
       super(activatedJobStub, FailedActivatedJobStubAssert.class);
     }
 
-    public FailedActivatedJobStubAssert hasErrorMessage(final String expected) {
+    public AbstractStringAssert<?> extractingErrorMessage() {
+      return assertThat(actual.getErrorMessage())
+          .describedAs("Error message for job " + actual.getKey());
+    }
 
-      assertThat(actual.getErrorMessage())
-          .describedAs("Error message for job " + actual.getKey())
-          .isEqualTo(expected);
+    public FailedActivatedJobStubAssert hasErrorMessage(final String expected) {
+      extractingErrorMessage().isEqualTo(expected);
 
       return this;
     }
 
-    public FailedActivatedJobStubAssert hasRetries(final int expected) {
+    public AbstractIntegerAssert<?> extractingRetries() {
+      return Assertions.assertThat(actual.getRemainingRetries())
+          .describedAs("Remaining retries for job " + actual.getKey());
+    }
 
-      assertThat(actual.getRemainingRetries())
-          .describedAs("Remaining retries for job " + actual.getKey())
-          .isEqualTo(expected);
+    public FailedActivatedJobStubAssert hasRetries(final int expected) {
+      extractingRetries().isEqualTo(expected);
 
       return this;
     }
@@ -99,20 +107,23 @@ public class ActivatedJobStubAssert
       super(actual, ErrorThrownActivatedJobStubAssert.class);
     }
 
-    public ErrorThrownActivatedJobStubAssert hasErrorCode(final String expected) {
+    public AbstractStringAssert<?> extractingErrorCode() {
+      return assertThat(actual.getErrorCode()).describedAs("Error code for job " + actual.getKey());
+    }
 
-      assertThat(actual.getErrorCode())
-          .describedAs("Error code for job " + actual.getKey())
-          .isEqualTo(expected);
+    public ErrorThrownActivatedJobStubAssert hasErrorCode(final String expected) {
+      extractingErrorCode().isEqualTo(expected);
 
       return this;
     }
 
-    public ErrorThrownActivatedJobStubAssert hasErrorMessage(final String expected) {
+    public AbstractStringAssert<?> extractingErrorMessage() {
+      return assertThat(actual.getErrorMessage())
+          .describedAs("Error message for job " + actual.getKey());
+    }
 
-      assertThat(actual.getErrorMessage())
-          .describedAs("Error message for job " + actual.getKey())
-          .isEqualTo(expected);
+    public ErrorThrownActivatedJobStubAssert hasErrorMessage(final String expected) {
+      extractingErrorMessage().isEqualTo(expected);
 
       return this;
     }

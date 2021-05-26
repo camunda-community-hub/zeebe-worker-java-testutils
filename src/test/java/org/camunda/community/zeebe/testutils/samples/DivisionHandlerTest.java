@@ -28,7 +28,7 @@ public class DivisionHandlerTest {
     sutDivisionHandler.handle(stubJobClient, stubActivatedJob);
 
     // then
-    assertThat(stubActivatedJob).completed().withOutputThat().containsOnly(entry("result", 2d));
+    assertThat(stubActivatedJob).completed().extractingOutput().containsOnly(entry("result", 2d));
   }
 
   @Test
@@ -46,7 +46,9 @@ public class DivisionHandlerTest {
     assertThat(stubActivatedJob)
         .threwError()
         .hasErrorCode("division-by-zero")
-        .hasErrorMessage("Cannot divide 4 by zero");
+        .extractingErrorMessage()
+        .containsIgnoringCase("cannot divide")
+        .containsIgnoringCase("by zero");
   }
 
   @Test
