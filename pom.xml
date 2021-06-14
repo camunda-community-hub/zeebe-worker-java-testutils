@@ -63,7 +63,7 @@
   <properties>
     <maven.version>3.0</maven.version>
 
-    <plugin.version.fmt>2.10</plugin.version.fmt>
+    <plugin.version.fmt>2.11</plugin.version.fmt>
 
     <plugin.version.jacoco>0.8.7</plugin.version.jacoco>
 
