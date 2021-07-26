@@ -6,7 +6,7 @@
 
   <groupId>io.zeebe</groupId>
   <artifactId>zeebe-worker-java-testutils</artifactId>
-  <version>1.1.1</version>
+  <version>1.1.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Zeebe Worker Java Test Utilities</name>
