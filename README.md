@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/Lifecycle-Incubating-blue)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#incubating-)
+[![](https://img.shields.io/badge/Lifecycle-Stable-brightgreen)](https://github.com/Camunda-Community-Hub/community/blob/main/extension-lifecycle.md#stable-)
 [![Community extension badge](https://img.shields.io/badge/Community%20Extension-An%20open%20source%20community%20maintained%20project-FF4700)](https://github.com/camunda-community-hub/community)
 [![Maven Central](https://img.shields.io/maven-central/v/io.zeebe/zeebe-worker-java-testutils.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.zeebe%22%20AND%20a:%22zeebe-worker-java-testutils%22)
 
@@ -78,3 +78,8 @@ Look at `samples` package to see more examples.
 * Exceptions thrown by aim to be class-compatible with the original exceptions
   * They won't, however, have the exact same messages as the real ones
   * Likewise, they have a different caused-by chain very different stacktraces
+
+## Contributing
+
+* [Code of Conduct](CODE_OF_CONDUCT.md)
+* [Contribution Guide](CONTRIBUTING.md)
