@@ -3,10 +3,9 @@ package org.camunda.community.zeebe.testutils.samples;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobHandler;
-import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
 
 public class JobHandlerImpl implements JobHandler {
 

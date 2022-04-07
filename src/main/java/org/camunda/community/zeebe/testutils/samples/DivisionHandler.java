@@ -3,7 +3,6 @@ package org.camunda.community.zeebe.testutils.samples;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobHandler;
-
 import java.util.HashMap;
 import java.util.Map;
 

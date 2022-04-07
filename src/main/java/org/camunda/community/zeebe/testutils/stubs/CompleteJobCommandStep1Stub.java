@@ -6,7 +6,6 @@ import io.camunda.zeebe.client.api.command.FinalCommandStep;
 import io.camunda.zeebe.client.api.response.CompleteJobResponse;
 import io.camunda.zeebe.client.impl.ZeebeObjectMapper;
 import io.camunda.zeebe.client.impl.command.CommandWithVariables;
-
 import java.time.Duration;
 
 class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobCommandStep1>

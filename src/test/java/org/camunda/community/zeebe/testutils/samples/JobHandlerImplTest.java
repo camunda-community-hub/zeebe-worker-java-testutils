@@ -1,18 +1,17 @@
 package org.camunda.community.zeebe.testutils.samples;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
+
 import io.grpc.StatusRuntimeException;
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
 import org.assertj.core.api.Assertions;
 import org.camunda.community.zeebe.testutils.samples.JobHandlerImpl.Scenario;
 import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
 import org.camunda.community.zeebe.testutils.stubs.JobClientStub;
 import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.entry;
-import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
 
 public class JobHandlerImplTest {
 

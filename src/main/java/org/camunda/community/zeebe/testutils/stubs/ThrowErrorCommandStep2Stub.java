@@ -3,7 +3,6 @@ package org.camunda.community.zeebe.testutils.stubs;
 import io.camunda.zeebe.client.api.ZeebeFuture;
 import io.camunda.zeebe.client.api.command.FinalCommandStep;
 import io.camunda.zeebe.client.api.command.ThrowErrorCommandStep1.ThrowErrorCommandStep2;
-
 import java.time.Duration;
 
 class ThrowErrorCommandStep2Stub implements ThrowErrorCommandStep2 {

@@ -1,14 +1,13 @@
 package org.camunda.community.zeebe.testutils.samples;
 
-import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
-import org.camunda.community.zeebe.testutils.stubs.JobClientStub;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.entry;
+import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.assertj.core.api.Assertions.entry;
-import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
+import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
+import org.camunda.community.zeebe.testutils.stubs.JobClientStub;
+import org.junit.jupiter.api.Test;
 
 public class DivisionHandlerTest {
 
