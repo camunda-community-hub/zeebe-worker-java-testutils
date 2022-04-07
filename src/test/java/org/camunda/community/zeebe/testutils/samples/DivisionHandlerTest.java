@@ -1,11 +1,14 @@
 package org.camunda.community.zeebe.testutils.samples;
 
-import static java.util.Map.entry;
-import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
-
-import java.util.Map;
+import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
 import org.camunda.community.zeebe.testutils.stubs.JobClientStub;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.entry;
+import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
 
 public class DivisionHandlerTest {
 
@@ -14,10 +17,14 @@ public class DivisionHandlerTest {
   @Test
   public void shouldDivideFourByTwo() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
 
-    stubActivatedJob.setInputVariables(Map.of("a", 4L, "b", 2L));
+    final Map<String, Object> variables = new HashMap<>();
+    variables.put("a", 4L);
+    variables.put("b", 2L);
+
+    stubActivatedJob.setInputVariables(variables);
     // set other fields as required
     //   stubActivatedJob.setBpmnProcessId("division_process");
     //   stubActivatedJob.setRetries(5);
@@ -34,10 +41,14 @@ public class DivisionHandlerTest {
   @Test
   public void shouldThrowErrorWhenDividingByZero() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
 
-    stubActivatedJob.setInputVariables(Map.of("a", 4L, "b", 0L));
+    final Map<String, Object> variables = new HashMap<>();
+    variables.put("a", 4L);
+    variables.put("b", 0L);
+
+    stubActivatedJob.setInputVariables(variables);
 
     // when
     sutDivisionHandler.handle(stubJobClient, stubActivatedJob);
@@ -54,10 +65,14 @@ public class DivisionHandlerTest {
   @Test
   public void shouldFailWhenInputInvalid() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
 
-    stubActivatedJob.setInputVariables(Map.of("a", 4L, "b", "INVALID INPUT"));
+    final Map<String, Object> variables = new HashMap<>();
+    variables.put("a", 4L);
+    variables.put("b", "INVALID INPUT");
+
+    stubActivatedJob.setInputVariables(variables);
 
     // when
     sutDivisionHandler.handle(stubJobClient, stubActivatedJob);

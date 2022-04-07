@@ -1,16 +1,18 @@
 package org.camunda.community.zeebe.testutils.samples;
 
-import static java.util.Map.entry;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
-
 import io.grpc.StatusRuntimeException;
-import java.util.concurrent.CompletionException;
-import java.util.concurrent.ExecutionException;
 import org.assertj.core.api.Assertions;
 import org.camunda.community.zeebe.testutils.samples.JobHandlerImpl.Scenario;
+import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
 import org.camunda.community.zeebe.testutils.stubs.JobClientStub;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.CompletionException;
+import java.util.concurrent.ExecutionException;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
 
 public class JobHandlerImplTest {
 
@@ -19,8 +21,8 @@ public class JobHandlerImplTest {
   @Test
   public void shouldCompleteJob() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
     JobHandlerImpl.Scenario.COMPLETE_JOB_NO_VARIABLES.writeScenario(stubActivatedJob);
 
     // when
@@ -33,8 +35,8 @@ public class JobHandlerImplTest {
   @Test
   public void shouldCompleteJobWithVariables() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
     JobHandlerImpl.Scenario.COMPLETE_JOB_WITH_VARIABLES.writeScenario(stubActivatedJob);
 
     // when
@@ -53,8 +55,8 @@ public class JobHandlerImplTest {
   @Test
   public void shouldFailJob() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
     JobHandlerImpl.Scenario.FAIL_JOB.writeScenario(stubActivatedJob);
 
     // when
@@ -67,8 +69,8 @@ public class JobHandlerImplTest {
   @Test
   public void shouldThrowError() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
     JobHandlerImpl.Scenario.THROW_ERROR.writeScenario(stubActivatedJob);
 
     // when
@@ -84,8 +86,8 @@ public class JobHandlerImplTest {
   @Test
   public void shouldLeaveJobActivated() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
     Scenario.COMMAND_REJECTED_JOB_NOT_FOUND.writeScenario(stubActivatedJob);
 
     // when

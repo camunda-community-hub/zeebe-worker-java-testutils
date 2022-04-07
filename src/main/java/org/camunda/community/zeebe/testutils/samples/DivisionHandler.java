@@ -3,13 +3,15 @@ package org.camunda.community.zeebe.testutils.samples;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobHandler;
+
+import java.util.HashMap;
 import java.util.Map;
 
 public class DivisionHandler implements JobHandler {
 
   @Override
   public void handle(final JobClient client, final ActivatedJob job) {
-    final var variables = job.getVariablesAsMap();
+    final Map<String, Object> variables = job.getVariablesAsMap();
 
     try {
       final long a = (long) (variables.get("a"));
@@ -23,7 +25,10 @@ public class DivisionHandler implements JobHandler {
             .send();
       } else {
         final double result = a / (float) b;
-        client.newCompleteCommand(job.getKey()).variables(Map.of("result", result)).send();
+        final Map<String, Object> resultVariables = new HashMap<>();
+        resultVariables.put("result", result);
+
+        client.newCompleteCommand(job.getKey()).variables(resultVariables).send();
       }
 
     } catch (final Exception e) {

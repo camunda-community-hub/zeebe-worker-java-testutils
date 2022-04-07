@@ -3,22 +3,26 @@ package org.camunda.community.zeebe.testutils.samples;
 import io.camunda.zeebe.client.api.response.ActivatedJob;
 import io.camunda.zeebe.client.api.worker.JobClient;
 import io.camunda.zeebe.client.api.worker.JobHandler;
-import java.util.Map;
 import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class JobHandlerImpl implements JobHandler {
 
   @Override
   public void handle(final JobClient client, final ActivatedJob job) {
 
-    final var scenario = Scenario.readScenario(job);
+    final Scenario scenario = Scenario.readScenario(job);
 
     switch (scenario) {
       case COMPLETE_JOB_NO_VARIABLES:
         client.newCompleteCommand(job.getKey()).send().join();
         break;
       case COMPLETE_JOB_WITH_VARIABLES:
-        client.newCompleteCommand(job.getKey()).variables(Map.of("key", "value")).send().join();
+        final Map<String, Object> variables = new HashMap<>();
+        variables.put("key", "value");
+        client.newCompleteCommand(job.getKey()).variables(variables).send().join();
         break;
       case FAIL_JOB:
         client.newFailCommand(job.getKey()).retries(3).errorMessage("job failed").send().join();
@@ -52,7 +56,7 @@ public class JobHandlerImpl implements JobHandler {
     }
 
     public static Scenario readScenario(final ActivatedJob job) {
-      final var value = job.getVariablesAsMap().get(Scenario.class.getSimpleName());
+      final Object value = job.getVariablesAsMap().get(Scenario.class.getSimpleName());
 
       return Scenario.valueOf((String) value);
     }

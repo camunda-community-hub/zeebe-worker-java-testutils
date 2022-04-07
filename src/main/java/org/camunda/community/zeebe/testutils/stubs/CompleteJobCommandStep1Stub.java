@@ -6,6 +6,7 @@ import io.camunda.zeebe.client.api.command.FinalCommandStep;
 import io.camunda.zeebe.client.api.response.CompleteJobResponse;
 import io.camunda.zeebe.client.impl.ZeebeObjectMapper;
 import io.camunda.zeebe.client.impl.command.CommandWithVariables;
+
 import java.time.Duration;
 
 class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobCommandStep1>
@@ -36,7 +37,7 @@ class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobComman
 
   @Override
   public ZeebeFuture<CompleteJobResponse> send() {
-    final var result = new ZeebeFutureStub<CompleteJobResponse>();
+    final ZeebeFutureStub<CompleteJobResponse> result = new ZeebeFutureStub<>();
 
     if (job != null) {
       job.setCompleted();

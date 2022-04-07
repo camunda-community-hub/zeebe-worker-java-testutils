@@ -1,11 +1,12 @@
 package org.camunda.community.zeebe.testutils.samples;
 
-import static org.awaitility.Awaitility.await;
-import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
-
+import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub;
 import org.camunda.community.zeebe.testutils.stubs.ActivatedJobStub.Status;
 import org.camunda.community.zeebe.testutils.stubs.JobClientStub;
 import org.junit.jupiter.api.Test;
+
+import static org.awaitility.Awaitility.await;
+import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
 
 public class AsyncJobHandlerTest {
 
@@ -14,8 +15,8 @@ public class AsyncJobHandlerTest {
   @Test
   public void shouldCompleteJob() {
     // given
-    final var stubJobClient = new JobClientStub();
-    final var stubActivatedJob = stubJobClient.createActivatedJob();
+    final JobClientStub stubJobClient = new JobClientStub();
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
 
     // when
     sutAsyncJobHandler.handle(stubJobClient, stubActivatedJob);
