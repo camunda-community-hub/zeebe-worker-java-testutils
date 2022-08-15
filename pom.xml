@@ -66,7 +66,7 @@
 
     <plugin.version.jacoco>0.8.8</plugin.version.jacoco>
 
-    <plugin.version.javadoc>3.4.0</plugin.version.javadoc>
+    <plugin.version.javadoc>3.4.1</plugin.version.javadoc>
     <plugin.version.surefire>3.0.0-M7</plugin.version.surefire>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.assertj>3.23.1</version.assertj>
