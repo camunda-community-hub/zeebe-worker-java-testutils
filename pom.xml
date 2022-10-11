@@ -6,7 +6,7 @@
 
   <groupId>io.zeebe</groupId>
   <artifactId>zeebe-worker-java-testutils</artifactId>
-  <version>8.0.7-SNAPSHOT</version>
+  <version>8.1.1</version>
   <packaging>jar</packaging>
 
   <name>Zeebe Worker Java Test Utilities</name>

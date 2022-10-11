@@ -4,7 +4,6 @@ import io.camunda.zeebe.client.api.ZeebeFuture;
 import io.camunda.zeebe.client.api.command.FailJobCommandStep1.FailJobCommandStep2;
 import io.camunda.zeebe.client.api.command.FinalCommandStep;
 import io.camunda.zeebe.client.api.response.FailJobResponse;
-
 import java.time.Duration;
 
 class FailJobCommandStep2Stub implements FailJobCommandStep2 {
