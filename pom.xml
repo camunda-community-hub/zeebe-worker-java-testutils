@@ -69,7 +69,7 @@
     <plugin.version.javadoc>3.4.1</plugin.version.javadoc>
     <plugin.version.surefire>3.0.0-M7</plugin.version.surefire>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.assertj>3.24.1</version.assertj>
+    <version.assertj>3.24.2</version.assertj>
 
     <version.awaitility>4.2.0</version.awaitility>
     <version.java>11</version.java>
