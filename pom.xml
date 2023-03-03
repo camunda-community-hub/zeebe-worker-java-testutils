@@ -29,7 +29,7 @@
     <artifactId>community-hub-release-parent</artifactId>
     <groupId>org.camunda.community</groupId>
     <relativePath />
-    <version>1.4.1</version>
+    <version>1.4.2</version>
   </parent>
 
   <dependencies>
