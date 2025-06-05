@@ -7,11 +7,11 @@ on:
     types: [ published ]
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -27,7 +27,7 @@ jobs:
         id: build
         run: mvn -B -U -Dsurefire.rerunFailingTestsCount=5 clean install
       - name: Archive Test Results on Failure
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: test-results
@@ -41,12 +41,16 @@ jobs:
           files: target/surefire-reports/*.xml
       - if: github.event.release || github.event_name == 'workflow_dispatch'
         name: Deploy SNAPSHOT / Release
-        uses: camunda-community-hub/community-action-maven-release@v1
+        uses: camunda-community-hub/community-action-maven-release@v2
         with:
           release-version: ${{ github.event.release.tag_name }}
           release-profile: community-action-maven-release
           nexus-usr: ${{ secrets.NEXUS_USR }}
           nexus-psw: ${{ secrets.NEXUS_PSW }}
+          sonatype-central-portal-usr: ${{ secrets.COMMUNITY_HUB_MAVEN_CENTRAL_CP_USR }}
+          sonatype-central-portal-psw: ${{ secrets.COMMUNITY_HUB_MAVEN_CENTRAL_CP_PSW }}
+          # maven-usr, maven-psw and maven-url are deprecated; they are required only for publishing to the legacy OSS Sonatype repository.
+          # Once the io.zeebe namespace is migrated to the Sonatype Central Portal, these can be safely removed.
           maven-usr: ${{ secrets.MAVEN_CENTRAL_DEPLOYMENT_USR }}
           maven-psw: ${{ secrets.MAVEN_CENTRAL_DEPLOYMENT_PSW }}
           maven-gpg-passphrase: ${{ secrets.MAVEN_CENTRAL_GPG_SIGNING_KEY_PASSPHRASE }}
