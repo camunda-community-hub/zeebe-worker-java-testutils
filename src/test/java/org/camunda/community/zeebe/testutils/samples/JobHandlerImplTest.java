@@ -4,7 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
 
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import io.grpc.StatusRuntimeException;
+import java.time.OffsetDateTime;
 import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 import org.assertj.core.api.Assertions;
@@ -16,6 +20,10 @@ import org.junit.jupiter.api.Test;
 public class JobHandlerImplTest {
 
   private final JobHandlerImpl sutJobHandler = new JobHandlerImpl();
+
+  private Module createCustomMapper() {
+    return new SimpleModule().addSerializer(OffsetDateTime.class, new OffsetDateTimeSerializer());
+  }
 
   @Test
   public void shouldCompleteJob() {
@@ -49,6 +57,28 @@ public class JobHandlerImplTest {
 
     // alternative assertion
     assertThat(stubActivatedJob.getOutputVariables()).containsExactly(entry("key", "value"));
+  }
+
+  @Test
+  void shouldCompleteJobWithVariablesAndCustomMapper() {
+    // given
+    final JobClientStub stubJobClient =
+        new JobClientStub(JsonMapper.builder().addModule(createCustomMapper()).build());
+    final ActivatedJobStub stubActivatedJob = stubJobClient.createActivatedJob();
+    Scenario.COMPLETE_JOB_WITH_VARIABLES_AND_CUSTOM_MAPPER.writeScenario(stubActivatedJob);
+
+    // when
+    sutJobHandler.handle(stubJobClient, stubActivatedJob);
+
+    // then
+    assertThat(stubActivatedJob)
+        .completed()
+        .extractingOutput()
+        .containsExactly(entry("offsetdatetime", "20231020 064323 +02:00"));
+
+    // alternative assertion
+    assertThat(stubActivatedJob.getOutputVariables())
+        .containsExactly(entry("offsetdatetime", "20231020 064323 +02:00"));
   }
 
   @Test

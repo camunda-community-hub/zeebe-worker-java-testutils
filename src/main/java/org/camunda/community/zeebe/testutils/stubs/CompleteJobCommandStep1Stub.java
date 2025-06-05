@@ -11,19 +11,20 @@ import java.time.Duration;
 class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobCommandStep1>
     implements CompleteJobCommandStep1 {
 
-  private static final ZeebeObjectMapper JSON_MAPPER = new ZeebeObjectMapper();
+  private final ZeebeObjectMapper mapper;
 
   private final ActivatedJobStub job;
 
-  CompleteJobCommandStep1Stub(final ActivatedJobStub job) {
-    super(JSON_MAPPER);
+  CompleteJobCommandStep1Stub(final ActivatedJobStub job, final ZeebeObjectMapper mapper) {
+    super(mapper);
+    this.mapper = mapper;
     this.job = job;
   }
 
   @Override
   protected CompleteJobCommandStep1 setVariablesInternal(final String variables) {
     if (job != null) {
-      job.setOutputVariables(JSON_MAPPER.fromJsonAsMap(variables));
+      job.setOutputVariables(mapper.fromJsonAsMap(variables));
     }
     return this;
   }
