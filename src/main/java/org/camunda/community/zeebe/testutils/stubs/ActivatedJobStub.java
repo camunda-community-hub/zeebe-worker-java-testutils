@@ -1,9 +1,15 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
-import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.impl.ZeebeObjectMapper;
+import io.camunda.client.api.response.ActivatedJob;
+import io.camunda.client.api.response.DocumentReferenceResponse;
+import io.camunda.client.api.response.UserTaskProperties;
+import io.camunda.client.api.search.enums.JobKind;
+import io.camunda.client.api.search.enums.ListenerEventType;
+import io.camunda.client.impl.CamundaObjectMapper;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Stub object for {@code ActivatedJob}. It contains setters for all getters defined in the
@@ -34,7 +40,7 @@ import java.util.Map;
  */
 public class ActivatedJobStub implements ActivatedJob {
 
-  private static final ZeebeObjectMapper JSON_MAPPER = new ZeebeObjectMapper();
+  private static final CamundaObjectMapper JSON_MAPPER = new CamundaObjectMapper();
 
   // variables available at the outset
   private Status status = Status.ACTIVATED;
@@ -182,8 +188,43 @@ public class ActivatedJobStub implements ActivatedJob {
   }
 
   @Override
+  public Object getVariable(String name) {
+    return null;
+  }
+
+  @Override
+  public UserTaskProperties getUserTask() {
+    return null;
+  }
+
+  @Override
+  public JobKind getKind() {
+    return null;
+  }
+
+  @Override
+  public ListenerEventType getListenerEventType() {
+    return null;
+  }
+
+  @Override
   public String toJson() {
     return JSON_MAPPER.toJson(this);
+  }
+
+  @Override
+  public String getTenantId() {
+    return "";
+  }
+
+  @Override
+  public List<DocumentReferenceResponse> getDocumentReferences(String name) {
+    return List.of();
+  }
+
+  @Override
+  public Set<String> getTags() {
+    return Set.of();
   }
 
   @Override

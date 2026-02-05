@@ -1,17 +1,19 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
-import io.camunda.zeebe.client.api.ZeebeFuture;
-import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
-import io.camunda.zeebe.client.api.command.FinalCommandStep;
-import io.camunda.zeebe.client.api.response.CompleteJobResponse;
-import io.camunda.zeebe.client.impl.ZeebeObjectMapper;
-import io.camunda.zeebe.client.impl.command.CommandWithVariables;
+import io.camunda.client.api.CamundaFuture;
+import io.camunda.client.api.command.CompleteJobCommandStep1;
+import io.camunda.client.api.command.CompleteJobResult;
+import io.camunda.client.api.command.FinalCommandStep;
+import io.camunda.client.api.response.CompleteJobResponse;
+import io.camunda.client.impl.CamundaObjectMapper;
+import io.camunda.client.impl.command.CommandWithVariables;
 import java.time.Duration;
+import java.util.function.Function;
 
 class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobCommandStep1>
     implements CompleteJobCommandStep1 {
 
-  private static final ZeebeObjectMapper JSON_MAPPER = new ZeebeObjectMapper();
+  private static final CamundaObjectMapper JSON_MAPPER = new CamundaObjectMapper();
 
   private final ActivatedJobStub job;
 
@@ -35,8 +37,8 @@ class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobComman
   }
 
   @Override
-  public ZeebeFuture<CompleteJobResponse> send() {
-    final ZeebeFutureStub<CompleteJobResponse> result = new ZeebeFutureStub<>();
+  public CamundaFuture<CompleteJobResponse> send() {
+    final CamundaFutureStub<CompleteJobResponse> result = new CamundaFutureStub<>();
 
     if (job != null) {
       job.setCompleted();
@@ -46,5 +48,21 @@ class CompleteJobCommandStep1Stub extends CommandWithVariables<CompleteJobComman
     }
 
     return result;
+  }
+
+  @Override
+  public CompleteJobCommandStep1 withResult(
+      Function<CompleteJobCommandJobResultStep, CompleteJobResult> consumer) {
+    return null;
+  }
+
+  @Override
+  public CompleteJobCommandStep1 useRest() {
+    return null;
+  }
+
+  @Override
+  public CompleteJobCommandStep1 useGrpc() {
+    return null;
   }
 }
