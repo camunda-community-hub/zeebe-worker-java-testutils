@@ -1,7 +1,7 @@
 package org.camunda.community.zeebe.testutils.samples;
 
 import static org.assertj.core.api.Assertions.entry;
-import static org.camunda.community.zeebe.testutils.ZeebeWorkerAssertions.assertThat;
+import static org.camunda.community.zeebe.testutils.CamundaWorkerAssertions.assertThat;
 
 import java.util.HashMap;
 import java.util.Map;

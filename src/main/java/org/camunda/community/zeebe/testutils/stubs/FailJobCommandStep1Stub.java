@@ -1,6 +1,6 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
-import io.camunda.zeebe.client.api.command.FailJobCommandStep1;
+import io.camunda.client.api.command.FailJobCommandStep1;
 
 class FailJobCommandStep1Stub implements FailJobCommandStep1 {
 
@@ -16,5 +16,15 @@ class FailJobCommandStep1Stub implements FailJobCommandStep1 {
       job.setRemainingRetries(remainingRetries);
     }
     return new FailJobCommandStep2Stub(job);
+  }
+
+  @Override
+  public FailJobCommandStep1 useRest() {
+    return null;
+  }
+
+  @Override
+  public FailJobCommandStep1 useGrpc() {
+    return null;
   }
 }

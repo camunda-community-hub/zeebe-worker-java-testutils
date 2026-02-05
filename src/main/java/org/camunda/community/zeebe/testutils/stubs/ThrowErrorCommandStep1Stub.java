@@ -1,6 +1,6 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
-import io.camunda.zeebe.client.api.command.ThrowErrorCommandStep1;
+import io.camunda.client.api.command.ThrowErrorCommandStep1;
 
 class ThrowErrorCommandStep1Stub implements ThrowErrorCommandStep1 {
 
@@ -16,5 +16,15 @@ class ThrowErrorCommandStep1Stub implements ThrowErrorCommandStep1 {
       job.setErrorCode(errorCode);
     }
     return new ThrowErrorCommandStep2Stub(job);
+  }
+
+  @Override
+  public ThrowErrorCommandStep1 useRest() {
+    return null;
+  }
+
+  @Override
+  public ThrowErrorCommandStep1 useGrpc() {
+    return null;
   }
 }

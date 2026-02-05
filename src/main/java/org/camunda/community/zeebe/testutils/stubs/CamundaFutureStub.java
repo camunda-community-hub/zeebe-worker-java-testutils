@@ -1,8 +1,8 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
-import io.camunda.zeebe.client.api.ZeebeFuture;
-import io.camunda.zeebe.client.api.command.ClientException;
-import io.camunda.zeebe.client.api.command.ClientStatusException;
+import io.camunda.client.api.CamundaFuture;
+import io.camunda.client.api.command.ClientException;
+import io.camunda.client.api.command.ClientStatusException;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import java.util.concurrent.CompletableFuture;
@@ -10,8 +10,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-class ZeebeFutureStub<CLIENT_RESPONSE> extends CompletableFuture<CLIENT_RESPONSE>
-    implements ZeebeFuture<CLIENT_RESPONSE> {
+class CamundaFutureStub<CLIENT_RESPONSE> extends CompletableFuture<CLIENT_RESPONSE>
+    implements CamundaFuture<CLIENT_RESPONSE> {
+
+  @Override
+  public boolean cancel(boolean mayInterruptIfRunning, Throwable cause) {
+    return false;
+  }
 
   @Override
   public CLIENT_RESPONSE join(final long timeout, final TimeUnit unit) {

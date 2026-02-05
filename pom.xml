@@ -6,7 +6,7 @@
 
   <groupId>io.zeebe</groupId>
   <artifactId>zeebe-worker-java-testutils</artifactId>
-  <version>8.1.9-SNAPSHOT</version>
+  <version>8.8.9-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>Zeebe Worker Java Test Utilities</name>
@@ -34,9 +34,9 @@
 
   <dependencies>
     <dependency>
-      <artifactId>zeebe-client-java</artifactId>
       <groupId>io.camunda</groupId>
-      <version>${zeebe.version}</version>
+      <artifactId>camunda-client-java</artifactId>
+      <version>${camunda.version}</version>
     </dependency>
 
     <dependency>
@@ -62,19 +62,19 @@
   <properties>
     <maven.version>3.0</maven.version>
 
-    <plugin.version.fmt>2.13</plugin.version.fmt>
+    <plugin.version.fmt>2.29</plugin.version.fmt>
 
-    <plugin.version.jacoco>0.8.8</plugin.version.jacoco>
+    <plugin.version.jacoco>0.8.14</plugin.version.jacoco>
 
     <plugin.version.javadoc>3.5.0</plugin.version.javadoc>
-    <plugin.version.surefire>3.0.0-M9</plugin.version.surefire>
+    <plugin.version.surefire>3.5.4</plugin.version.surefire>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.assertj>3.24.2</version.assertj>
+    <version.assertj>3.27.7</version.assertj>
 
-    <version.awaitility>4.2.0</version.awaitility>
-    <version.java>11</version.java>
-    <version.junit>5.9.2</version.junit>
-    <zeebe.version>8.1.9</zeebe.version>
+    <version.awaitility>4.3.0</version.awaitility>
+    <version.java>25</version.java>
+    <version.junit>6.0.2</version.junit>
+    <camunda.version>8.8.9</camunda.version>
   </properties>
 
   <dependencyManagement>
@@ -95,8 +95,8 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
+          <source>25</source>
+          <target>25</target>
         </configuration>
       </plugin>
       <plugin>
@@ -107,7 +107,7 @@
 
       <!-- Google code format plugin -->
       <plugin>
-        <groupId>com.coveo</groupId>
+        <groupId>com.spotify.fmt</groupId>
         <artifactId>fmt-maven-plugin</artifactId>
         <version>${plugin.version.fmt}</version>
         <executions>

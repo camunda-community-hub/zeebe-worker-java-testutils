@@ -1,10 +1,8 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
-import io.camunda.zeebe.client.api.command.CompleteJobCommandStep1;
-import io.camunda.zeebe.client.api.command.FailJobCommandStep1;
-import io.camunda.zeebe.client.api.command.ThrowErrorCommandStep1;
-import io.camunda.zeebe.client.api.response.ActivatedJob;
-import io.camunda.zeebe.client.api.worker.JobClient;
+import io.camunda.client.api.command.*;
+import io.camunda.client.api.response.ActivatedJob;
+import io.camunda.client.api.worker.JobClient;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -43,6 +41,16 @@ public class JobClientStub implements JobClient {
   @Override
   public ThrowErrorCommandStep1 newThrowErrorCommand(final ActivatedJob job) {
     return newThrowErrorCommand(job.getKey());
+  }
+
+  @Override
+  public ActivateJobsCommandStep1 newActivateJobsCommand() {
+    return null;
+  }
+
+  @Override
+  public StreamJobsCommandStep1 newStreamJobsCommand() {
+    return null;
   }
 
   private ActivatedJobStub takeJob(final long jobKey) {

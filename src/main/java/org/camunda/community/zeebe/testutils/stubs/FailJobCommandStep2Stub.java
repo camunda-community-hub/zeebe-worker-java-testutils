@@ -1,10 +1,12 @@
 package org.camunda.community.zeebe.testutils.stubs;
 
-import io.camunda.zeebe.client.api.ZeebeFuture;
-import io.camunda.zeebe.client.api.command.FailJobCommandStep1.FailJobCommandStep2;
-import io.camunda.zeebe.client.api.command.FinalCommandStep;
-import io.camunda.zeebe.client.api.response.FailJobResponse;
+import io.camunda.client.api.CamundaFuture;
+import io.camunda.client.api.command.FailJobCommandStep1.FailJobCommandStep2;
+import io.camunda.client.api.command.FinalCommandStep;
+import io.camunda.client.api.response.FailJobResponse;
+import java.io.InputStream;
 import java.time.Duration;
+import java.util.Map;
 
 class FailJobCommandStep2Stub implements FailJobCommandStep2 {
 
@@ -23,14 +25,45 @@ class FailJobCommandStep2Stub implements FailJobCommandStep2 {
   }
 
   @Override
+  public FailJobCommandStep2 variables(String variables) {
+    return this;
+  }
+
+  @Override
+  public FailJobCommandStep2 variables(Object variables) {
+    return this;
+  }
+
+  @Override
+  public FailJobCommandStep2 variables(InputStream variables) {
+    return null;
+  }
+
+  @Override
+  public FailJobCommandStep2 variables(Map<String, Object> variables) {
+    if (job != null) {
+      job.setOutputVariables(variables);
+    }
+    return this;
+  }
+
+  @Override
+  public FailJobCommandStep2 variable(String key, Object value) {
+    if (job != null) {
+      job.setOutputVariables(Map.of(key, value));
+    }
+    return this;
+  }
+
+  @Override
   public FinalCommandStep<FailJobResponse> requestTimeout(final Duration requestTimeout) {
     // no effect on stub
     return this;
   }
 
   @Override
-  public ZeebeFuture<FailJobResponse> send() {
-    final ZeebeFutureStub<FailJobResponse> result = new ZeebeFutureStub<>();
+  public CamundaFuture<FailJobResponse> send() {
+    final CamundaFutureStub<FailJobResponse> result = new CamundaFutureStub<>();
 
     if (job != null) {
       job.setFailed();
