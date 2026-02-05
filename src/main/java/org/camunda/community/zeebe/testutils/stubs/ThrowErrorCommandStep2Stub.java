@@ -6,7 +6,6 @@ import io.camunda.client.api.command.ThrowErrorCommandStep1.ThrowErrorCommandSte
 import io.camunda.client.api.response.ThrowErrorResponse;
 import java.io.InputStream;
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
 class ThrowErrorCommandStep2Stub implements ThrowErrorCommandStep2 {
@@ -50,9 +49,7 @@ class ThrowErrorCommandStep2Stub implements ThrowErrorCommandStep2 {
   @Override
   public ThrowErrorCommandStep2 variable(String key, Object value) {
     if (job != null) {
-      final HashMap<String, Object> variables = HashMap.newHashMap(1);
-      variables.put(key, value);
-      job.setOutputVariables(variables);
+      job.setOutputVariables(Map.of(key, value));
     }
     return this;
   }

@@ -6,7 +6,6 @@ import io.camunda.client.api.command.FinalCommandStep;
 import io.camunda.client.api.response.FailJobResponse;
 import java.io.InputStream;
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
 class FailJobCommandStep2Stub implements FailJobCommandStep2 {
@@ -51,9 +50,7 @@ class FailJobCommandStep2Stub implements FailJobCommandStep2 {
   @Override
   public FailJobCommandStep2 variable(String key, Object value) {
     if (job != null) {
-      final HashMap<String, Object> variables = HashMap.newHashMap(1);
-      variables.put(key, value);
-      job.setOutputVariables(variables);
+      job.setOutputVariables(Map.of(key, value));
     }
     return this;
   }
